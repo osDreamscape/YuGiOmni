@@ -2,28 +2,8 @@
 // author: Matt Bauchspies - mbauchspies@protonmail.com
 
 // import required module
-const express = require("express");
-const mysql = require('mysql');
-require('dotenv').config({path: '.env'});
-
-// createTcpPool initializes a TCP connection pool for a Cloud SQL
-// instance of MySQL.
-const createTcpPool = async config => {
-    console.log("yes")
-  const dbConfig = {
-    host: process.env.INSTANCE_HOST, // e.g. '127.0.0.1'
-    port: process.env.DB_PORT, // e.g. '3306'
-    user: process.env.DB_USER, // e.g. 'my-db-user'
-    password: process.env.DB_PASS, // e.g. 'my-db-password'
-    database: process.env.DB_NAME, // e.g. 'my-database'
-    // ... Specify additional properties here.
-    ...config
-  };
-  // Establish a connection to the database.
-  print("hello")
-  return mysql.createPool(dbConfig);
-};
-const app = express();
+let express = require("express");
+let app = express();
 
 // required for bypassing Access-Control-Allow-Origin
 // may require "npm i cors express" to be ran if the error persists
@@ -245,28 +225,9 @@ app.get('/meleedps/:hitchance/:maxhit/:attackspeed', function(req, res) {
 
 })
 
-app.get("/:card_names", async (req, res) => {
-    const query = "SELECT * FROM card_names WHERE card_name = ?";
-    pool.query(query, [req.params.card_names], (error, results) => {
-        if (!results[0]) {
-            res.json({ status: "Not found!"});
-        } else {
-            res.json(results[0])
-        }
-    });
-});
-
-const pool = mysql.createPool({
-    user: "root",
-    password: "SQL1972",
-    database: "yugiomni",
-    socketPath: `/cloudsql/yugiomni:us-west1:yugiomni1`
-});
-
 
 
 // enable a port to listen to incoming HTTP requests
 app.listen(3000, function() {
     console.log("Listening on port 3000...");
-    console.log(pool)
 });
