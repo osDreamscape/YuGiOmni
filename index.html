@@ -1,4 +1,4 @@
-<!-- Matt Bauchspies - - mbauch72@uw.edu - Assignment 3 - TCSS 460 - SU 2023 -->
+<!-- Matt Bauchspies - - mbauch72@uw.edu -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,18 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./style.css" />
-    <title>OSRS Calcs</title>
+    <title>YuGiOmni</title>
 </head>
 
 <body>
     <!--Title of the webpage-->
     <div class="title col-sm-12 p-2 bg-secondary">
         <div class="container">
-            <h3>Old School RuneScape Calculators</h3>
+            <h3>Yu-Gi-Omni database</h3>
             <p>Written by: Matt Bauchspies <br>
-                <a href="https://github.com/osDreamscape">GitHub</a> -
-                <a href="https://www.linkedin.com/in/matt-bauchspies/">LinkedIn</a><br>
-                <a href="mailto:mbauchspies@protonmail.com">Email me</a>
+                <a href="https://github.com/osDreamscape">GitHub</a>
             </p>
         </div>
     </div>
@@ -36,8 +34,8 @@
                     type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
 
                 <!--Melee Max Hit Calculator tab-->
-                <button class="nav-link" id="nav-maxhit-tab" data-bs-toggle="tab" data-bs-target="#nav-maxhit"
-                    type="button" role="tab" aria-controls="nav-maxhit" aria-selected="false">Max Hit</button>
+                <button class="nav-link" id="nav-carddata-tab" data-bs-toggle="tab" data-bs-target="#nav-carddata"
+                    type="button" role="tab" aria-controls="nav-carddata" aria-selected="false">Card Data</button>
 
                 <!--Melee Accuracy Calculator tab-->
                 <button class="nav-link" id="nav-accuracy-tab" data-bs-toggle="tab" data-bs-target="#nav-accuracy"
@@ -78,76 +76,10 @@
         </div>
 
         <!--Max Hit tab content-->
-        <div class="tab-pane fade p-3" id="nav-maxhit" role="tabpanel" aria-labelledby="nav-maxhit-tab">
-            <h1>Melee Max Hit</h1>
+        <div class="tab-pane fade p-3" id="nav-carddata" role="tabpanel" aria-labelledby="nav-carddata-tab">
+            <h1>My card data!</h1>
             <div class="maxhit-container">
-                <form>
-                    <div class="mb-3">
-                        <!--Text entry for the strength level of the character-->
-                        <label for="strengthlevel" class="form-label">Strength level:</label>
-                        <input type="number" class="form-control" id="strengthlevel" aria-describedby="strengthlevel"
-                            min="0" placeholder="1">
-                    </div>
-                    <div class="mb-3">
-                        <!--Select from a number of preset boosts, if any-->
-                        <label for="strengthboost" class="form-label">Boosts:</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
-                            id="strengthboost">
-                            <option value="none" selected>None</option>
-                            <option value="strengthpotion">Strength potion</option>
-                            <option value="superstrengthpotion">Super strength potion</option>
-                            <option value="overload">Overload+</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <!--Text entry for the strength bonus from gear, if any-->
-                        <label for="strengthbonus" class="form-label">Strength bonus:</label>
-                        <input type="number" class="form-control" id="strengthbonus" aria-describedby="strengthbonus"
-                            min="0" placeholder="0">
-                    </div>
-                    <div class="mb-3">
-                        <!--Select from a number of predefined prayer boosts, if any-->
-                        <label for="strengthprayer" class="form-label">Prayer:</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg prayer"
-                            id="strengthprayer">
-                            <option value="0" selected>None</option>
-                            <option value="5">Burst of Strength</option>
-                            <option value="10">Superhuman Strength</option>
-                            <option value="15">Ultimate Strength</option>
-                            <option value="18">Chivalry</option>
-                            <option value="23">Piety</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <!--Select from some combinations of possible set bonuses, if any-->
-                        <label for="strengthset" class="form-label">Set:</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg set"
-                            id="strengthset">
-                            <option value="none" selected>None</option>
-                            <option value="void">Void</option>
-                            <option value="voidsalve">Void + Salve</option>
-                            <option value="voidsalvee">Void + Salve (e)</option>
-                            <option value="slayer">Slayer helm/Black mask</option>
-                            <option value="salve">Salve</option>
-                            <option value="salvee">Salve (e)</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <!--Select what style is being used-->
-                        <label for="strengthstyle" class="form-label">Style:</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
-                            id="strengthstyle">
-                            <option value="0" selected>Accurate</option>
-                            <option value="3">Aggressive</option>
-                            <option value="1">Controlled</option>
-                            <option value="0">Defensive</option>
-                        </select>
-                    </div>
-                </form>
-                <h3>Max Hit: </h3>
-                <!--Output of the calculations-->
-                <h1 id="calculatedmax">0</h1>
-                <button type="submit" class="btn btn-primary" id="maxsubmit">Calculate Max Hit</button>
+                <p>This will be our card data</p>
             </div>
         </div>
 
@@ -329,6 +261,7 @@
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
 </body>
+
 <script>
     RESTAPI = `http://127.0.0.1:3000`
 
