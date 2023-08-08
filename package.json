@@ -1,0 +1,30 @@
+{
+  "name": "oldschoolrunescapecalcs",
+  "version": "1.0.0",
+  "description": "Calculates a melee max hit in Old School RuneScape",
+  "main": "app.js",
+  "scripts": {
+    "build": "node app.js"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "max",
+    "hit",
+    "melee",
+    "calc",
+    "osrs",
+    "old",
+    "school",
+    "runescape",
+    "calculator"
+  ],
+  "author": "Matt Bauchspies",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}

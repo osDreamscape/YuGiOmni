@@ -1,0 +1,27 @@
+  #nav-home h1, #nav-maxhit h1, #nav-accuracy h1, #nav-defence h1, #nav-dps h1 {
+    padding-left: 70px;
+  }
+  #nav-home p, #nav-maxhit p, #nav-accuracy p, #nav-defence p {
+    padding-left: 70px;
+    padding-right: 70px;
+    align-items: center;
+  }
+  .maxhit-container, .accuracy-container, .defence-container{
+    padding-left:90px;
+    width: 300px;
+  }
+  #calculatedmax, #calculateddps {
+    color:red;
+  }
+  #calculatedaccuracy, #calculatedhitchance {
+    color:green;
+  }
+  #calculateddefence {
+    color: lightblue;
+  }
+  .dps-container {
+    padding-left: 90px;
+  }
+  #attackspeed {
+    width: 100px;
+  }

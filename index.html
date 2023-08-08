@@ -1,0 +1,410 @@
+<!-- Matt Bauchspies - - mbauch72@uw.edu - Assignment 3 - TCSS 460 - SU 2023 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <title>OSRS Calcs</title>
+</head>
+
+<body>
+    <!--Title of the webpage-->
+    <div class="title col-sm-12 p-2 bg-secondary">
+        <div class="container">
+            <h3>Old School RuneScape Calculators</h3>
+            <p>Written by: Matt Bauchspies <br>
+                <a href="https://github.com/osDreamscape">GitHub</a> -
+                <a href="https://www.linkedin.com/in/matt-bauchspies/">LinkedIn</a><br>
+                <a href="mailto:mbauchspies@protonmail.com">Email me</a>
+            </p>
+        </div>
+    </div>
+
+    <!--Container for the tabs the webpage utilizes-->
+    <div class="container my-5">
+        <!--Tabs for the webpage-->
+        <nav>
+
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+                <!--Home tab-->
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                    type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+
+                <!--Melee Max Hit Calculator tab-->
+                <button class="nav-link" id="nav-maxhit-tab" data-bs-toggle="tab" data-bs-target="#nav-maxhit"
+                    type="button" role="tab" aria-controls="nav-maxhit" aria-selected="false">Max Hit</button>
+
+                <!--Melee Accuracy Calculator tab-->
+                <button class="nav-link" id="nav-accuracy-tab" data-bs-toggle="tab" data-bs-target="#nav-accuracy"
+                    type="button" role="tab" aria-controls="nav-accuracy" aria-selected="false">Accuracy</button>
+
+                <!--Melee Defence Calculator tab-->
+                <button class="nav-link" id="nav-defence-tab" data-bs-toggle="tab" data-bs-target="#nav-defence"
+                    type="button" role="tab" aria-controls="nav-defence" aria-selected="false">Defence</button>
+
+                <!--Melee DPS Calculator tab-->
+                <button class="nav-link" id="nav-dps-tab" data-bs-toggle="tab" data-bs-target="#nav-dps" type="button"
+                    role="tab" aria-controls="nav-dps" aria-selected="false">DPS</button>
+
+            </div>
+
+        </nav>
+    </div>
+
+    <!--Content for the individual tabs of the webpage-->
+    <div class="tab-content" id="nav-tabContent">
+
+        <!--Home tab content-->
+        <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <h1>About this page:</h1>
+            <p>This is a collection of calculators for <a href="https://oldschool.runescape.com/">Old School
+                    RuneScape</a>.<br>
+                Currently this page is capable of performing calculations related to melee max hit,
+                accuracy, defence, and DPS.<br>
+                <br>
+                If you'd like to see how these calculations work, check out <a
+                    href="https://oldschool.runescape.wiki/w/Damage_per_second/Melee">this</a> wiki article on the OSRS
+                Wiki. <br>
+                <br>
+                Potential future additions include mage and range calculators in the same format at these, support for
+                special attacks, additional support for niche cases such as Dharok's set effects, and a database of gear
+                to be selected from.
+            </p>
+        </div>
+
+        <!--Max Hit tab content-->
+        <div class="tab-pane fade p-3" id="nav-maxhit" role="tabpanel" aria-labelledby="nav-maxhit-tab">
+            <h1>Melee Max Hit</h1>
+            <div class="maxhit-container">
+                <form>
+                    <div class="mb-3">
+                        <!--Text entry for the strength level of the character-->
+                        <label for="strengthlevel" class="form-label">Strength level:</label>
+                        <input type="number" class="form-control" id="strengthlevel" aria-describedby="strengthlevel"
+                            min="0" placeholder="1">
+                    </div>
+                    <div class="mb-3">
+                        <!--Select from a number of preset boosts, if any-->
+                        <label for="strengthboost" class="form-label">Boosts:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
+                            id="strengthboost">
+                            <option value="none" selected>None</option>
+                            <option value="strengthpotion">Strength potion</option>
+                            <option value="superstrengthpotion">Super strength potion</option>
+                            <option value="overload">Overload+</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <!--Text entry for the strength bonus from gear, if any-->
+                        <label for="strengthbonus" class="form-label">Strength bonus:</label>
+                        <input type="number" class="form-control" id="strengthbonus" aria-describedby="strengthbonus"
+                            min="0" placeholder="0">
+                    </div>
+                    <div class="mb-3">
+                        <!--Select from a number of predefined prayer boosts, if any-->
+                        <label for="strengthprayer" class="form-label">Prayer:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg prayer"
+                            id="strengthprayer">
+                            <option value="0" selected>None</option>
+                            <option value="5">Burst of Strength</option>
+                            <option value="10">Superhuman Strength</option>
+                            <option value="15">Ultimate Strength</option>
+                            <option value="18">Chivalry</option>
+                            <option value="23">Piety</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <!--Select from some combinations of possible set bonuses, if any-->
+                        <label for="strengthset" class="form-label">Set:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg set"
+                            id="strengthset">
+                            <option value="none" selected>None</option>
+                            <option value="void">Void</option>
+                            <option value="voidsalve">Void + Salve</option>
+                            <option value="voidsalvee">Void + Salve (e)</option>
+                            <option value="slayer">Slayer helm/Black mask</option>
+                            <option value="salve">Salve</option>
+                            <option value="salvee">Salve (e)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <!--Select what style is being used-->
+                        <label for="strengthstyle" class="form-label">Style:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
+                            id="strengthstyle">
+                            <option value="0" selected>Accurate</option>
+                            <option value="3">Aggressive</option>
+                            <option value="1">Controlled</option>
+                            <option value="0">Defensive</option>
+                        </select>
+                    </div>
+                </form>
+                <h3>Max Hit: </h3>
+                <!--Output of the calculations-->
+                <h1 id="calculatedmax">0</h1>
+                <button type="submit" class="btn btn-primary" id="maxsubmit">Calculate Max Hit</button>
+            </div>
+        </div>
+
+
+        <!--Accuracy tab content-->
+        <div class="tab-pane fade p-3" id="nav-accuracy" role="tabpanel" aria-labelledby="nav-accuracy-tab">
+            <h1>Melee Accuracy Roll</h1>
+            <div class="accuracy-container">
+                <form>
+                    <div class="mb-3">
+                        <!--Text entry for attack level of the character-->
+                        <label for="attacklevel" class="form-label">Attack level:</label>
+                        <input type="number" class="form-control" id="attacklevel" aria-describedby="attacklevel"
+                            min="0" placeholder="1">
+                    </div>
+                    <div class="mb-3">
+                        <!--Select from predefined boosts for attack, if any-->
+                        <label for="attackboost" class="form-label">Boosts:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
+                            id="attackboost">
+                            <option value="none" selected>None</option>
+                            <option value="attackpotion">Attack potion</option>
+                            <option value="superattackpotion">Super attack potion</option>
+                            <option value="overload">Overload+</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <!--Text entry for the attack bonus of the type used, if any-->
+                        <label for="attackbonus" class="form-label">Attack bonus:</label>
+                        <input type="number" class="form-control" id="attackbonus" aria-describedby="attackbonus"
+                            placeholder="0">
+                    </div>
+                    <div class="mb-3">
+                        <!--Select from predefined prayers for attack used, if any-->
+                        <label for="attackprayer" class="form-label">Prayer:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg prayer"
+                            id="attackprayer">
+                            <option value="0" selected>None</option>
+                            <option value="5">Clarity of Thought</option>
+                            <option value="10">Improved Reflexes</option>
+                            <option value="15">Incredible Reflexes</option>
+                            <option value="15">Chivalry</option>
+                            <option value="20">Piety</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <!--Select from some combinations of sets, if any-->
+                        <label for="attackset" class="form-label">Set:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg set" id="attackset">
+                            <option value="none" selected>None</option>
+                            <option value="void">Void</option>
+                            <option value="voidsalve">Void + Salve</option>
+                            <option value="voidsalvee">Void + Salve (e)</option>
+                            <option value="slayer">Slayer helm/Black mask</option>
+                            <option value="salve">Salve</option>
+                            <option value="salvee">Salve (e)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <!--Select the attack style used-->
+                        <label for="attackstyle" class="form-label">Style:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
+                            id="attackstyle">
+                            <option value="3" selected>Accurate</option>
+                            <option value="0">Aggressive</option>
+                            <option value="1">Controlled</option>
+                            <option value="0">Defensive</option>
+                        </select>
+                    </div>
+                </form>
+                <h3>Accuracy: </h3>
+                <!--The calculated accuracy roll-->
+                <h1 id="calculatedaccuracy">0</h1>
+                <button type="submit" class="btn btn-primary" id="accuracysubmit">Calculate Accuracy Roll</button>
+            </div>
+        </div>
+
+        <!--Defence tab content-->
+        <div class="tab-pane fade p-3" id="nav-defence" role="tabpanel" aria-labelledby="nav-defence-tab">
+            <h1>Melee Defence Roll</h1>
+            <div class="defence-container">
+                <form>
+                    <div class="form-check">
+                        <!--Checkbox for if the defending character is a monster, as this affects calculations-->
+                        <input class="form-check-input" type="checkbox" value="" id="monstercheck">
+                        <label class="form-check-label" for="monstercheck">
+                            Monster?
+                        </label>
+                    </div>
+                    <div class="mb-3">
+                        <!--Text entry for the character's defence level-->
+                        <label for="defencelevel" class="form-label">Defence level:</label>
+                        <input type="number" class="form-control" id="defencelevel" aria-describedby="defencelevel"
+                            min="0" placeholder="1">
+                    </div>
+                    <div class="mb-3">
+                        <!--Select from some predefined boosts of defence, if any-->
+                        <label for="defenceboost" class="form-label">Boosts:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
+                            id="defenceboost">
+                            <option value="none" selected>None</option>
+                            <option value="defencepotion">Defence potion</option>
+                            <option value="superdefencepotion">Super defence potion</option>
+                            <option value="saradominbrew">Saradomin brew</option>
+                            <option value="overload">Overload+</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <!--Text entry for the defence gear bonus of the respective type, if any-->
+                        <label for="defencebonus" class="form-label">Defence bonus:</label>
+                        <input type="number" class="form-control" id="defencebonus" aria-describedby="defencebonus"
+                            placeholder="0">
+                    </div>
+                    <div class="mb-3">
+                        <!--Select from a number of predefined defensive prayers used, if any-->
+                        <label for="defenceprayer" class="form-label">Prayer:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg prayer"
+                            id="defenceprayer">
+                            <option value="0" selected>None</option>
+                            <option value="5">Thick Skin</option>
+                            <option value="10">Rock Skin</option>
+                            <option value="15">Steel Skin</option>
+                            <option value="20">Chivalry</option>
+                            <option value="25">Piety</option>
+                            <option value="25">Rigour</option>
+                            <option value="25">Augury</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <!--Select style used-->
+                        <label for="defencestyle" class="form-label">Style:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
+                            id="defencestyle">
+                            <option value="0" selected>Accurate</option>
+                            <option value="0">Aggressive</option>
+                            <option value="1">Controlled</option>
+                            <option value="3">Defensive</option>
+                        </select>
+                    </div>
+                </form>
+                <h3>Defence: </h3>
+                <!--The calculated defence roll-->
+                <h1 id="calculateddefence">0</h1>
+                <button type="submit" class="btn btn-primary" id="defencesubmit">Calculate Defence Roll</button>
+            </div>
+        </div>
+
+        <!--DPS tab content-->
+        <div class="tab-pane fade p-3" id="nav-dps" role="tabpanel" aria-labelledby="nav-dps-tab">
+            <h1>Melee DPS</h1>
+            <div class="dps-container">
+                <!--Hit chance utilizes the accuracy and defence rolls to determine hit percentage-->
+                <p>Note: this uses the accuracy and defence tabs' info</p>
+                <button type="submit" class="btn btn-primary" id="hitchancesubmit">Calculate Hit Chance</button>
+                <!--The calculated hit chance-->
+                <h2 id="calculatedhitchance">0</h2>
+                <p>Note: this uses the max hit, accuracy, and defence tabs' info</p>
+                <form>
+                    <div class="mb-3">
+                        <!--Attack speed in game ticks, usually ranges between 2 and 7-->
+                        <label for="attackspeed" class="form-label">Attack speed:</label>
+                        <input type="number" class="form-control" id="attackspeed" aria-describedby="attackspeed"
+                            min="1" max="10" placeholder="4">
+                    </div>
+                </form>
+                <!--Calculates a max hit utilizing hit chance, max hit, and attack speed-->
+                <button type="submit" class="btn btn-primary" id="dpssubmit">Calculate DPS</button>
+                <!--The calculated DPS-->
+                <h2 id="calculateddps">0</h2>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--import bootstrap and jquery at the end to load page quicker-->
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+<script>
+    RESTAPI = `http://127.0.0.1:3000`
+
+    // Sends a request to the localhost API to calculate the max hit
+    $("#maxsubmit").click(function () {
+        
+        let maxrequest = RESTAPI + "/meleemaxhit" + "/" + level + "/" + boost + "/" + bonus + "/" + prayer + "/" + set + "/" + style;
+        $.get(maxrequest).then(data => {
+            let max = data.max_hit;
+            $("#calculatedmax").html(max);
+        });
+    });
+
+    // Sends a request to the localhost API to calculate the accuracy roll
+    $("#accuracysubmit").click(function () {
+        const level = $("#attacklevel").val();
+        const boost = $("#attackboost").val();
+        const bonus = $("#attackbonus").val();
+        const prayer = $("#attackprayer").val();
+        const set = $("#attackset").val();
+        const style = $("#attackstyle").val();
+
+        let accuracyrequest = RESTAPI + "/meleeaccuracy" + "/" + level + "/" + boost + "/" + bonus + "/" + prayer + "/" + set + "/" + style;
+        $.get(accuracyrequest).then(data => {
+            let accuracy = data.accuracy_roll;
+            $("#calculatedaccuracy").html(accuracy);
+        });
+    });
+
+    // Sends a request to the localhost API to calculate the defence roll
+    $("#defencesubmit").click(function () {
+        const level = $("#defencelevel").val();
+        const boost = $("#defenceboost").val();
+        const bonus = $("#defencebonus").val();
+        const prayer = $("#defenceprayer").val();
+        const style = $("#defencestyle").val();
+
+        let monster;
+        if ($('#monstercheck').is(':checked')) {
+            monster = 1;
+        } else {
+            monster = 0;
+        }
+
+        let defencerequest = RESTAPI + "/meleedefence" + "/" + level + "/" + boost + "/" + bonus + "/" + prayer + "/" + style + "/" + monster;
+        $.get(defencerequest).then(data => {
+            let defenceroll = data.defence_roll;
+            $("#calculateddefence").html(defenceroll);
+        });
+    });
+
+    // Sends a request to the localhost API to calculate the hit chance
+    $("#hitchancesubmit").click(function () {
+        const accuracy = $("#calculatedaccuracy").html();
+        const defence = $("#calculateddefence").html();
+
+        let hitchancerequest = RESTAPI + "/meleehitchance" + "/" + accuracy + "/" + defence;
+        $.get(hitchancerequest).then(data => {
+            let hitchance = data.hitchance;
+            $("#calculatedhitchance").html(hitchance);
+        });
+    });
+
+    // Sends a request to the localhost API to calculate the hit chance
+    $("#dpssubmit").click(function () {
+        const hitchance = $("#calculatedhitchance").html();
+        const maxhit = $("#calculatedmax").html();
+        const attackspeed = $("#attackspeed").val();
+
+
+        let dpsrequest = RESTAPI + "/meleedps" + "/" + hitchance + "/" + maxhit + "/" + attackspeed;
+        $.get(dpsrequest).then(data => {
+            let dps = data.DPS;
+            $("#calculateddps").html(dps);
+        });
+    });
+</script>
+
+</html>
