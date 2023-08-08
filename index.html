@@ -334,7 +334,13 @@
 
     // Sends a request to the localhost API to calculate the max hit
     $("#maxsubmit").click(function () {
-        
+        const level = $("#strengthlevel").val();
+        const boost = $("#strengthboost").val();
+        const bonus = $("#strengthbonus").val();
+        const prayer = $("#strengthprayer").val();
+        const set = $("#strengthset").val();
+        const style = $("#strengthstyle").val();
+
         let maxrequest = RESTAPI + "/meleemaxhit" + "/" + level + "/" + boost + "/" + bonus + "/" + prayer + "/" + set + "/" + style;
         $.get(maxrequest).then(data => {
             let max = data.max_hit;
