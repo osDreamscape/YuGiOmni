@@ -6,9 +6,9 @@
     padding-right: 70px;
     align-items: center;
   }
-  .maxhit-container, .accuracy-container, .defence-container{
+  .query-container, .accuracy-container, .defence-container{
     padding-left:90px;
-    width: 300px;
+    width: 500px;
   }
   #calculatedmax, #calculateddps {
     color:red;
