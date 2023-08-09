@@ -1,4 +1,4 @@
-<!-- Matt Bauchspies - - mbauch72@uw.edu -->
+<!-- Matt Bauchspies - - mbauch72@uw.edu-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +15,9 @@
     <!--Title of the webpage-->
     <div class="title col-sm-12 p-2 bg-secondary">
         <div class="container">
-            <h3>Yu-Gi-Omni database</h3>
-            <p>Written by: Matt Bauchspies <br>
-                <a href="https://github.com/osDreamscape">GitHub</a>
+            <h3>YuGiOmni Card Database</h3>
+            <p>Matt Bauchspies, Jacob Erickson, Elias Peterson <br>
+                <a href="https://github.com/osDreamscape">GitHub</a> -
             </p>
         </div>
     </div>
@@ -33,9 +33,9 @@
                 <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                     type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
 
-                <!--Melee Max Hit Calculator tab-->
-                <button class="nav-link" id="nav-carddata-tab" data-bs-toggle="tab" data-bs-target="#nav-carddata"
-                    type="button" role="tab" aria-controls="nav-carddata" aria-selected="false">Card Data</button>
+                <!--Queries tab-->
+                <button class="nav-link" id="nav-query-tab" data-bs-toggle="tab" data-bs-target="#nav-query"
+                    type="button" role="tab" aria-controls="nav-query" aria-selected="false">SQL Queries</button>
 
                 <!--Melee Accuracy Calculator tab-->
                 <button class="nav-link" id="nav-accuracy-tab" data-bs-toggle="tab" data-bs-target="#nav-accuracy"
@@ -60,26 +60,40 @@
         <!--Home tab content-->
         <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <h1>About this page:</h1>
-            <p>This is a collection of calculators for <a href="https://oldschool.runescape.com/">Old School
-                    RuneScape</a>.<br>
-                Currently this page is capable of performing calculations related to melee max hit,
-                accuracy, defence, and DPS.<br>
-                <br>
-                If you'd like to see how these calculations work, check out <a
-                    href="https://oldschool.runescape.wiki/w/Damage_per_second/Melee">this</a> wiki article on the OSRS
-                Wiki. <br>
-                <br>
-                Potential future additions include mage and range calculators in the same format at these, support for
-                special attacks, additional support for niche cases such as Dharok's set effects, and a database of gear
-                to be selected from.
-            </p>
+            <p>This page utilizes a Google Cloud hosted MySQL database, as well as Express, Apache, and Node.js to send
+                API requests in order to communicate with the database for SQL queries.</p>
         </div>
 
-        <!--Max Hit tab content-->
-        <div class="tab-pane fade p-3" id="nav-carddata" role="tabpanel" aria-labelledby="nav-carddata-tab">
-            <h1>My card data!</h1>
-            <div class="maxhit-container">
-                <p>This will be our card data</p>
+        <!--query tab content-->
+        <div class="tab-pane fade p-3" id="nav-query" role="tabpanel">
+            <h1>Arbitrary query</h1>
+            <div class="query-container">
+                <form>
+
+                    <div class="mb-3">
+                        <!--Text entry for the attribute(s)-->
+                        <label for="select" class="form-label">SELECT:</label>
+                        <input type="text" class="form-control" id="select" placeholder="card_name, card_id">
+                    </div>
+
+                    <div class="mb-3">
+                        <!--Text entry for the table-->
+                        <label for="from" class="form-label">FROM:</label>
+                        <input type="text" class="form-control" id="from" placeholder="card_names">
+                    </div>
+
+                    <div class="mb-3">
+                        <!--Text entry for the where constraints-->
+                        <label for="where" class="form-label">WHERE:</label>
+                        <input type="text" class="form-control" id="where" placeholder="card_name='Pot of Greed'">
+                    </div>
+
+                </form>
+                <h3>Arbitrary query results:</h3>
+                <!--Output of the calculations-->
+                <button type="submit" class="btn btn-primary" id="querysubmit">Execute query</button>
+                <h6 id="queryresults">null</h6>
+
             </div>
         </div>
 
@@ -261,23 +275,25 @@
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
 </body>
-
 <script>
     RESTAPI = `http://127.0.0.1:3000`
 
     // Sends a request to the localhost API to calculate the max hit
-    $("#maxsubmit").click(function () {
-        const level = $("#strengthlevel").val();
-        const boost = $("#strengthboost").val();
-        const bonus = $("#strengthbonus").val();
-        const prayer = $("#strengthprayer").val();
-        const set = $("#strengthset").val();
-        const style = $("#strengthstyle").val();
+    $("#querysubmit").click(function () {
+        const selection = $("#select").val();
+        const from = $("#from").val();
+        const where = $("#where").val();
 
-        let maxrequest = RESTAPI + "/meleemaxhit" + "/" + level + "/" + boost + "/" + bonus + "/" + prayer + "/" + set + "/" + style;
-        $.get(maxrequest).then(data => {
-            let max = data.max_hit;
-            $("#calculatedmax").html(max);
+        let executequery = RESTAPI + "/select" + "/" + selection + "/" + from + "/" + where;
+        $.get(executequery).then(data => {
+            let result = ""
+            for (const element of data) {
+                console.log(element)
+                result = result + "card name: " + element.card_name + "<br>card_id: " + element.card_id + "<br>"
+            }
+            $("#queryresults").html(result);
+        }).fail(() => {
+            $("#queryresults").html("Error, check your query parameters.");
         });
     });
 
