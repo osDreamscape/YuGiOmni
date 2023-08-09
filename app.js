@@ -1,9 +1,11 @@
-// A REST service that provides numerous calculators that provide utility for Old School RuneScape
-// author: Matt Bauchspies - mbauchspies@protonmail.com
+// a REST service that accepts parameters from a webpage and returns JSON data
+// for Yu-Gi-Oh cards from a Google Cloud hosted database
+// author: Matt Bauchspies - mbauchspies@protonmail.com / mbauch72@uw.edu
 
 // import required module
-let express = require("express");
-let app = express();
+const  express = require('express');
+const mysql = require('mysql');
+const app = express();
 
 // required for bypassing Access-Control-Allow-Origin
 // may require "npm i cors express" to be ran if the error persists
@@ -13,67 +15,43 @@ app.use(cors({
     origin: 'null'
 }));
 
+
+// Establishes address and credentials of the database used in the API
+const con = mysql.createConnection({
+    host: '34.145.63.173',
+    port: 3306,
+    user: 'testlogin',
+    database: 'yugiomni'
+});
+
+// Establishes connection to the cloud database
+con.connect(function(err) {
+    if (err) 
+        return console.err(err);
+    console.log('connected')
+});
+
+
+
 // define a route using a callback function that will be invoked
 // when the user makes a HTTP request to the root of the folder (URL)
 app.get('/', function (req, res) {
     res.status(200);
-    res.send("");
+    res.send("This REST service is currently active.");
 });
 
-// calculates a melee max hit
-app.get('/meleemaxhit/:level/:boost/:bonus/:prayer/:set/:style', function(req, res) {
-    const level = parseInt(req.params.level);
-    let boost = req.params.boost;
-    const bonus = parseInt(req.params.bonus);
-    const prayer = parseInt(req.params.prayer);
-    const set = req.params.set;
-    const style = parseInt(req.params.style);
+// performs a single SQL SELECT query on the YuGiOmni database
+app.get('/select/:attribute/:from/:where', function(req, res) {
+    let attribute = req.params.attribute;
+    let from = req.params.from;
+    let where = req.params.where;
+    let query = "SELECT " + attribute + " FROM " + from + " WHERE " + where;
 
-    const setbonuses = ["none", "void", "voidsalve", "voidsalvee", "slayer", "salve", "salvee"];
-    const boosts = ["none", "strengthpotion", "superstrengthpotion", "overload"];
-
-    if (isNaN(level) || !(boosts.includes(boost)) || isNaN(bonus) || isNaN(prayer) || !(setbonuses.includes(set)) || isNaN(style))
-    {
-        res.status(400);
-        res.json({error: "Bad request, a value provided was invalid."});
-        return;
-    }
-
-    // determines the boost amount from the potion used
-    switch(boost) {
-        case 'none' :
-            boost = 0;
-            break;
-        case 'strengthpotion' :
-            boost = Math.floor(level * 0.1) + 3;
-            break;
-        case 'superstrengthpotion' :
-            boost = Math.floor(level * 0.15) + 5;
-            break;
-        case 'overload' :
-            boost = Math.floor(level * 0.16) + 6;
-            break;
-    }
-
-    // Calculates the effective Strength level based on values provided.
-    // Combines the level and boosts, then applies prayer and style bonuses (if any)
-    let effectiveStr = Math.floor((level + boost) * (prayer/100 + 1)) + style + 8;
-
-    if(set.includes("void")) {
-        effectiveStr = Math.floor(effectiveStr * 1.1);
-    }
-
-    // Takes the calculated effective strength value and calculates a max hit based on the gear bonus.
-    let maxHit = Math.floor((effectiveStr * (bonus + 64) + 320)/640);
-
-    if (set.includes("salvee")) {
-        maxHit = Math.floor(maxHit * 1.2);
-    } else if (set.includes("salve") || set.includes("slayer")) {
-        maxHit = Math.floor(maxHit * (7/6))
-    } 
-
-    // Returns a JSON response with the values the user provided as well as the calculated max hit.
-    res.json({ "strength_level" : level, "visible_boost" : boost, "strength_bonus" : bonus, "prayer" : prayer + "%", "set_bonus" : set + "%", "style" : "+" + style, "effective_level" : effectiveStr, "max_hit" : maxHit});
+    con.query(query, function (err, result, fields) {
+        if (err) res.status(400);
+        res.json(result);
+        console.log(result)
+      });
 });
 
 // calculates a melee accuracy value
