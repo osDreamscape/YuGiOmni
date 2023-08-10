@@ -45,7 +45,8 @@ app.get('/select/:attribute/:from/:where', function(req, res) {
     let attribute = req.params.attribute;
     let from = req.params.from;
     let where = req.params.where;
-    let query = "SELECT " + attribute + " FROM " + from + " WHERE " + where;
+    let query = "SELECT " + attribute + " FROM " + from;
+    if(where !== "none") query += " WHERE " + where;
 
     con.query(query, function (err, result, fields) {
         if (err) res.status(400);

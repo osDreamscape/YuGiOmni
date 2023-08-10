@@ -76,10 +76,22 @@
                         <input type="text" class="form-control" id="select" placeholder="card_name, card_id">
                     </div>
 
-                    <div class="mb-3">
-                        <!--Text entry for the table-->
+                    <!-- <div class="mb-3">
                         <label for="from" class="form-label">FROM:</label>
                         <input type="text" class="form-control" id="from" placeholder="card_names">
+                    </div> -->
+                    <div class="mb-3">
+                        <!--Select from some predefined boosts of defence, if any-->
+                        <label for="from" class="form-label">From:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
+                            id="from">
+                            <option value="card_names" selected>Card Names</option>
+                            <option value="monster_cards">Monster Cards</option>
+                            <option value="spell_cards">Spell Cards</option>
+                            <option value="trap_cards">Trap Cards</option>
+                            <option value="set_names">Set Names</option>
+                            <option value="card_sets">Card Sets</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
@@ -92,7 +104,7 @@
                 <h3>Arbitrary query results:</h3>
                 <!--Output of the calculations-->
                 <button type="submit" class="btn btn-primary" id="querysubmit">Execute query</button>
-                <h6 id="queryresults">null</h6>
+                <table id="query-results"></table>
 
             </div>
         </div>
@@ -284,16 +296,30 @@
         const from = $("#from").val();
         const where = $("#where").val();
 
-        let executequery = RESTAPI + "/select" + "/" + selection + "/" + from + "/" + where;
+        let executequery = RESTAPI + "/select" + "/" + selection + "/" + from;
+        if(where !== "") executequery += "/" + where;
+        else executequery += "/none";
+
         $.get(executequery).then(data => {
-            let result = ""
-            for (const element of data) {
-                console.log(element)
-                result = result + "card name: " + element.card_name + "<br>card_id: " + element.card_id + "<br>"
+            let result = "<tr>"
+            for(const name of Object.keys(data[0])) {
+                let newName = ""
+                name.split("_").map(word => {
+                    newName += word[0].toUpperCase() + word.substr(1) + " ";
+                })
+                result += "<th>" + newName + "</th>";
             }
-            $("#queryresults").html(result);
+            result += "</tr>"
+            for(const element of data) {
+                result += "<tr>";
+                var vals = Object.keys(element).map(function (key) {
+                    result += "<td>" + element[key] + "</td>";
+                });
+                result += "</tr>";
+            }
+            $("#query-results").html(result);
         }).fail(() => {
-            $("#queryresults").html("Error, check your query parameters.");
+            $("#query-results").html("Error, check your query parameters. <br>" + executequery);
         });
     });
 

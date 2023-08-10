@@ -6,9 +6,15 @@
     padding-right: 70px;
     align-items: center;
   }
-  .query-container, .accuracy-container, .defence-container{
-    padding-left:90px;
-    width: 500px;
+  .query-results, table {
+    padding: 2px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .query-results, tr, th, td {
+    border: 1px solid;
+    padding: 8px;
   }
   #calculatedmax, #calculateddps {
     color:red;
