@@ -16,8 +16,9 @@
     <div class="title col-sm-12 p-2 bg-secondary">
         <div class="container">
             <h3>YuGiOmni Card Database</h3>
-            <p>Matt Bauchspies, Jacob Erickson, Elias Peterson <br>
-                <a href="https://github.com/osDreamscape">GitHub</a> -
+            <p><a href="https://github.com/osDreamscape">Matt Bauchspies</a>, 
+                <a href="https://github.com/jae253">Jacob Erickson</a>, 
+                Elias Peterson <br>
             </p>
         </div>
     </div>
@@ -33,21 +34,21 @@
                 <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                     type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
 
-                <!--Queries tab-->
-                <button class="nav-link" id="nav-query-tab" data-bs-toggle="tab" data-bs-target="#nav-query"
-                    type="button" role="tab" aria-controls="nav-query" aria-selected="false">SQL Queries</button>
-
                 <!--Melee Accuracy Calculator tab-->
                 <button class="nav-link" id="nav-accuracy-tab" data-bs-toggle="tab" data-bs-target="#nav-accuracy"
-                    type="button" role="tab" aria-controls="nav-accuracy" aria-selected="false">Accuracy</button>
+                    type="button" role="tab" aria-controls="nav-accuracy" aria-selected="false">Monster Cards</button>
 
                 <!--Melee Defence Calculator tab-->
                 <button class="nav-link" id="nav-defence-tab" data-bs-toggle="tab" data-bs-target="#nav-defence"
-                    type="button" role="tab" aria-controls="nav-defence" aria-selected="false">Defence</button>
+                    type="button" role="tab" aria-controls="nav-defence" aria-selected="false">Trap Cards</button>
 
                 <!--Melee DPS Calculator tab-->
                 <button class="nav-link" id="nav-dps-tab" data-bs-toggle="tab" data-bs-target="#nav-dps" type="button"
-                    role="tab" aria-controls="nav-dps" aria-selected="false">DPS</button>
+                    role="tab" aria-controls="nav-dps" aria-selected="false">Spell Cards</button>
+
+                <!--Queries tab-->
+                <button class="nav-link" id="nav-query-tab" data-bs-toggle="tab" data-bs-target="#nav-query"
+                type="button" role="tab" aria-controls="nav-query" aria-selected="false">Custom Query (advanced)</button>
 
             </div>
 
@@ -59,6 +60,7 @@
 
         <!--Home tab content-->
         <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <img src="logo.png" class="center">
             <h1>About this page:</h1>
             <p>This page utilizes a Google Cloud hosted MySQL database, as well as Express, Apache, and Node.js to send
                 API requests in order to communicate with the database for SQL queries.</p>
@@ -69,7 +71,16 @@
             <h1>Arbitrary query</h1>
             <div class="query-container">
                 <form>
-
+                    <fieldset>
+                        <legend>Select attributes to select:</legend>
+                      
+                        <div>
+                          <input type="checkbox" id="scales" name="scales" checked />
+                          <label for="scales">Card Name</label>
+                          <input type="checkbox" id="horns" name="horns" />
+                          <label for="horns">Card ID</label>
+                        </div>
+                      </fieldset>
                     <div class="mb-3">
                         <!--Text entry for the attribute(s)-->
                         <label for="select" class="form-label">SELECT:</label>
@@ -112,7 +123,7 @@
 
         <!--Accuracy tab content-->
         <div class="tab-pane fade p-3" id="nav-accuracy" role="tabpanel" aria-labelledby="nav-accuracy-tab">
-            <h1>Melee Accuracy Roll</h1>
+            <h1>Monster Cards</h1>
             <div class="accuracy-container">
                 <form>
                     <div class="mb-3">
