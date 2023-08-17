@@ -73,7 +73,6 @@
                 <form>
                     <fieldset>
                         <legend>Select attributes to select:</legend>
-                      
                         <div>
                           <input type="checkbox" id="scales" name="scales" checked />
                           <label for="scales">Card Name</label>
@@ -115,7 +114,10 @@
                 <h3>Arbitrary query results:</h3>
                 <!--Output of the calculations-->
                 <button type="submit" class="btn btn-primary" id="querysubmit">Execute query</button>
-                <table id="query-results"></table>
+                <br>
+                <p>Example queries:</p>
+                <button type="submit" class="btn btn-primary" id="monsteratkdefquery">Monsters with same ATK/DEF</button>
+                <table id="custom-query-results"></table>
 
             </div>
         </div>
@@ -124,88 +126,56 @@
         <!--Accuracy tab content-->
         <div class="tab-pane fade p-3" id="nav-accuracy" role="tabpanel" aria-labelledby="nav-accuracy-tab">
             <h1>Monster Cards</h1>
-            <div class="accuracy-container">
+            <div class="mb-3">
+                
                 <form>
-                    <div class="mb-3">
-                        <!--Text entry for attack level of the character-->
-                        <label for="attacklevel" class="form-label">Attack level:</label>
-                        <input type="number" class="form-control" id="attacklevel" aria-describedby="attacklevel"
-                            min="0" placeholder="1">
-                    </div>
-                    <div class="mb-3">
-                        <!--Select from predefined boosts for attack, if any-->
-                        <label for="attackboost" class="form-label">Boosts:</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
-                            id="attackboost">
-                            <option value="none" selected>None</option>
-                            <option value="attackpotion">Attack potion</option>
-                            <option value="superattackpotion">Super attack potion</option>
-                            <option value="overload">Overload+</option>
+                    <!-- Card type selection -->
+                    <label for="monster_card_type" class="form-label">Select card type:</label>
+                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg monster_card_type"
+                            id="monster_card_type">
+                            <option value="Wildcard" selected>Any type</option>
+                            <option value="Aqua">Aqua</option>
+                            <option value="Beast">Beast</option>
+                            <option value="Beast-Warrior">Beast-Warrior</option>
+                            <option value="Cyberse">Cyberse</option>
+                            <option value="Dinosaur">Dinosaur</option>
+                            <option value="Divine-Beast">Divine-Beast</option>
+                            <option value="Dragon">Dragon</option>
+                            <option value="Fairy">Fairy</option>
+                            <option value="Fiend">Fiend</option>
+                            <option value="Fish">Fish</option>
+                            <option value="Insect">Insect</option>
+                            <option value="Machine">Machine</option>
+                            <option value="Plant">Plant</option>
+                            <option value="Psychic">Psychic</option>
+                            <option value="Pyro">Pyro</option>
+                            <option value="Reptile">Reptile</option>
+                            <option value="Rock">Rock</option>
+                            <option value="Sea Serpent">Sea Serpent</option>
+                            <option value="Spellcaster">Spellcaster</option>
+                            <option value="Thunder">Thunder</option>
+                            <option value="Warrior">Warrior</option>
+                            <option value="Winged Beast">Winged Beast</option>
+                            <option value="Wyrm">Wyrm</option>
+                            <option value="Zombie">Zombie</option>
                         </select>
-                    </div>
-                    <div class="mb-3">
-                        <!--Text entry for the attack bonus of the type used, if any-->
-                        <label for="attackbonus" class="form-label">Attack bonus:</label>
-                        <input type="number" class="form-control" id="attackbonus" aria-describedby="attackbonus"
-                            placeholder="0">
-                    </div>
-                    <div class="mb-3">
-                        <!--Select from predefined prayers for attack used, if any-->
-                        <label for="attackprayer" class="form-label">Prayer:</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg prayer"
-                            id="attackprayer">
-                            <option value="0" selected>None</option>
-                            <option value="5">Clarity of Thought</option>
-                            <option value="10">Improved Reflexes</option>
-                            <option value="15">Incredible Reflexes</option>
-                            <option value="15">Chivalry</option>
-                            <option value="20">Piety</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <!--Select from some combinations of sets, if any-->
-                        <label for="attackset" class="form-label">Set:</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg set" id="attackset">
-                            <option value="none" selected>None</option>
-                            <option value="void">Void</option>
-                            <option value="voidsalve">Void + Salve</option>
-                            <option value="voidsalvee">Void + Salve (e)</option>
-                            <option value="slayer">Slayer helm/Black mask</option>
-                            <option value="salve">Salve</option>
-                            <option value="salvee">Salve (e)</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <!--Select the attack style used-->
-                        <label for="attackstyle" class="form-label">Style:</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg boost"
-                            id="attackstyle">
-                            <option value="3" selected>Accurate</option>
-                            <option value="0">Aggressive</option>
-                            <option value="1">Controlled</option>
-                            <option value="0">Defensive</option>
-                        </select>
-                    </div>
                 </form>
-                <h3>Accuracy: </h3>
-                <!--The calculated accuracy roll-->
-                <h1 id="calculatedaccuracy">0</h1>
-                <button type="submit" class="btn btn-primary" id="accuracysubmit">Calculate Accuracy Roll</button>
+                <button type="submit" class="btn btn-primary" id="monsterquerysubmit">Search</button>
             </div>
+                <div class="mb-3">
+                    <!--Text entry for the attribute(s)-->
+                    <label for="select" class="form-label">Alternatively, search by name:</label>
+                    <input type="text" class="form-control" id="monster_card_name" placeholder="Name of card">
+                </div>
+                <button type="submit" class="btn btn-primary" id="monsterquerynamesubmit">Search by name</button>
+                <table id="monster-query-results"></table>
+            
         </div>
 
         <!--Defence tab content-->
         <div class="tab-pane fade p-3" id="nav-defence" role="tabpanel" aria-labelledby="nav-defence-tab">
-            <h1>Melee Defence Roll</h1>
-            <div class="defence-container">
+            <h1>Trap Cards</h1>
                 <form>
-                    <div class="form-check">
-                        <!--Checkbox for if the defending character is a monster, as this affects calculations-->
-                        <input class="form-check-input" type="checkbox" value="" id="monstercheck">
-                        <label class="form-check-label" for="monstercheck">
-                            Monster?
-                        </label>
-                    </div>
                     <div class="mb-3">
                         <!--Text entry for the character's defence level-->
                         <label for="defencelevel" class="form-label">Defence level:</label>
@@ -261,7 +231,6 @@
                 <!--The calculated defence roll-->
                 <h1 id="calculateddefence">0</h1>
                 <button type="submit" class="btn btn-primary" id="defencesubmit">Calculate Defence Roll</button>
-            </div>
         </div>
 
         <!--DPS tab content-->
@@ -328,11 +297,127 @@
                 });
                 result += "</tr>";
             }
-            $("#query-results").html(result);
+            $("#custom-query-results").html(result);
         }).fail(() => {
-            $("#query-results").html("Error, check your query parameters. <br>" + executequery);
+            $("#custom-query-results").html("Error, check your query parameters. <br>" + executequery);
         });
     });
+
+    // Sends a request to the localhost API to calculate the max hit
+    $("#monsterquerysubmit").click(function () {
+        const selection = $("#monster_card_type").val();
+        let executequery = RESTAPI + "/monster_select" + "/" + selection;
+
+        $.get(executequery).then(data => {
+            let result = "<tr>"
+            for(const name of Object.keys(data[0])) {
+                let newName = ""
+                name.split("_").map(word => {
+                    newName += word[0].toUpperCase() + word.substr(1) + " ";
+                })
+                result += "<th>" + newName + "</th>";
+            }
+            result += "</tr>"
+            for(const element of data) {
+                result += "<tr>";
+                var vals = Object.keys(element).map(function (key) {
+                    result += "<td>" + element[key] + "</td>";
+                });
+                result += "</tr>";
+            }
+            $("#monster-query-results").html(result);
+        }).fail(() => {
+            $("#monster-query-results").html("No matches were found under these parameters.");
+        });
+    });
+
+    // Sends a request to the localhost API to calculate the max hit
+    $("#monsterquerysubmit").click(function () {
+        const selection = $("#monster_card_type").val();
+        let executequery = RESTAPI + "/monster_select" + "/" + selection;
+
+        $.get(executequery).then(data => {
+            let result = "<tr>"
+            for(const name of Object.keys(data[0])) {
+                let newName = ""
+                name.split("_").map(word => {
+                    newName += word[0].toUpperCase() + word.substr(1) + " ";
+                })
+                result += "<th>" + newName + "</th>";
+            }
+            result += "</tr>"
+            for(const element of data) {
+                result += "<tr>";
+                var vals = Object.keys(element).map(function (key) {
+                    result += "<td>" + element[key] + "</td>";
+                });
+                result += "</tr>";
+            }
+            $("#monster-query-results").html(result);
+        }).fail(() => {
+            $("#monster-query-results").html("No matches were found under these parameters.");
+        });
+    });
+
+    // Sends a request to the localhost API to calculate the max hit
+    $("#monsteratkdefquery").click(function () {
+        let executequery = RESTAPI + "/example_query/atk_def";
+
+        $.get(executequery).then(data => {
+            let result = "<tr>"
+            for(const name of Object.keys(data[0])) {
+                let newName = ""
+                name.split("_").map(word => {
+                    newName += word[0].toUpperCase() + word.substr(1) + " ";
+                })
+                result += "<th>" + newName + "</th>";
+            }
+            result += "</tr>"
+            for(const element of data) {
+                result += "<tr>";
+                var vals = Object.keys(element).map(function (key) {
+                    result += "<td>" + element[key] + "</td>";
+                });
+                result += "</tr>";
+            }
+            $("#custom-query-results").html(result);
+        }).fail(() => {
+            $("#custom-query-results").html("No matches were found under these parameters.");
+        });
+    });
+
+    // Sends a request to the localhost API to calculate the accuracy roll
+    $("#monsterquerynamesubmit").click(function () {
+        const monster_card_name = $("#monster_card_name").val();
+        if (monster_card_name !== ""){
+            let executequery = RESTAPI + "/special_select/card_name, attack, defense, card_type, monster_level/monster_cards/" + monster_card_name;
+            $.get(executequery).then(data => {
+                let result = "<tr>"
+                for(const name of Object.keys(data[0])) {
+                    let newName = ""
+                    name.split("_").map(word => {
+                        newName += word[0].toUpperCase() + word.substr(1) + " ";
+                    })
+                    result += "<th>" + newName + "</th>";
+                }
+                result += "</tr>"
+                for(const element of data) {
+                    result += "<tr>";
+                    var vals = Object.keys(element).map(function (key) {
+                        result += "<td>" + element[key] + "</td>";
+                    });
+                    result += "</tr>";
+                }
+                $("#monster-query-results").html(result);
+            }).fail(() => {
+                $("#monster-query-results").html("No matches found. <br>");
+            });
+        } else {
+            $("#monster-query-results").html("Error, check your query parameters. <br>");
+        }
+
+    });
+
 
     // Sends a request to the localhost API to calculate the accuracy roll
     $("#accuracysubmit").click(function () {
@@ -349,6 +434,8 @@
             $("#calculatedaccuracy").html(accuracy);
         });
     });
+
+
 
     // Sends a request to the localhost API to calculate the defence roll
     $("#defencesubmit").click(function () {

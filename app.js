@@ -55,6 +55,48 @@ app.get('/select/:attribute/:from/:where', function(req, res) {
       });
 });
 
+// performs a single SQL SELECT query on the YuGiOmni database
+app.get('/monster_select/:type/', function(req, res) {
+    let type = req.params.type;
+    console.log("Type requested:" + type);
+    let query = "SELECT card_name, card_type FROM monster_cards NATURAL JOIN card_names";
+    if(type !== "Wildcard") query += " WHERE card_type = \"" + type + "\"";
+    query += " ORDER BY card_type, card_name ASC"
+    con.query(query, function (err, result, fields) {
+        if (err) res.status(400);
+        res.json(result);
+        console.log(result)
+      });
+});
+
+
+// performs a single SQL SELECT query on the YuGiOmni database, after joining the Card IDs and a specified relation
+app.get('/special_select/:attribute/:from/:name', function(req, res) {
+    let attribute = req.params.attribute;
+    let from = req.params.from;
+    let name = req.params.name;
+    console.log(name);
+    console.log("SELECT " + attribute + " FROM card_names NATURAL JOIN " + from + " WHERE card_names.card_name LIKE \"%" + name + "%\"");
+    let query = "SELECT " + attribute + " FROM card_names NATURAL JOIN " + from;
+    if(name !== "") query += " WHERE card_names.card_name LIKE \"%" + name + "%\"";
+    con.query(query, function (err, result, fields) {
+        if (err) res.status(400);
+        res.json(result);
+        //console.log(result)
+      });
+});
+
+// performs a single SQL SELECT query on the YuGiOmni database, after joining the Card IDs and a specified relation
+app.get('/example_query/atk_def', function(req, res) {
+    let query = "SELECT card_name, attack, defense FROM card_names NATURAL JOIN monster_cards WHERE attack = defense";
+    con.query(query, function (err, result, fields) {
+        if (err) res.status(400);
+        res.json(result);
+        //console.log(result)
+      });
+});
+
+
 // calculates a melee accuracy value
 app.get('/meleeaccuracy/:level/:boost/:bonus/:prayer/:set/:style', function(req, res) {
     const level = parseInt(req.params.level);
