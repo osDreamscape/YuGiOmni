@@ -50,9 +50,10 @@ app.get('/select/:attribute/:from/:where', function(req, res) {
     if(where !== "none") query += " WHERE " + where;
 
     con.query(query, function (err, result, fields) {
+        console.log(query);
         if (err) res.status(400);
         res.json(result);
-        // console.log(result)
+        console.log(result)
       });
 });
 
@@ -64,9 +65,10 @@ app.get('/monster_select/:type/', function(req, res) {
     if(type !== "Wildcard") query += " WHERE card_type = \"" + type + "\"";
     query += " ORDER BY card_type, card_name ASC"
     con.query(query, function (err, result, fields) {
+        console.log(query);
         if (err) res.status(400);
         res.json(result);
-        // console.log(result)
+        console.log(result)
       });
 });
 
@@ -81,19 +83,54 @@ app.get('/special_select/:attribute/:from/:name', function(req, res) {
     let query = "SELECT " + attribute + " FROM card_names NATURAL JOIN " + from;
     if(name !== "") query += " WHERE card_names.card_name LIKE \"%" + name + "%\"";
     con.query(query, function (err, result, fields) {
+        console.log(query);
         if (err) res.status(400);
         res.json(result);
-        //console.log(result)
+        console.log(result)
       });
 });
 
-// Executes a single SQL SELECT query on the YuGiOmni database, after joining the Card IDs and a specified relation.
+// Executes a single SQL SELECT query on the YuGiOmni database, returning monster cards whose ATK and DEF values are equal.
 app.get('/example_query/atk_def', function(req, res) {
     let query = "SELECT card_name, attack, defense FROM card_names NATURAL JOIN monster_cards WHERE attack = defense";
     con.query(query, function (err, result, fields) {
+        console.log(query);
         if (err) res.status(400);
         res.json(result);
-        //console.log(result)
+        console.log(result)
+      });
+});
+
+// Executes a single SQL SELECT query on the YuGiOmni database, returning monster cards whose rarity is Rare or higher.
+app.get('/example_query/count_rarity', function(req, res) {
+    let query = "SELECT Attribute, COUNT(*) AS Count FROM monster_cards JOIN card_names USING (card_ID) JOIN ( SELECT * FROM card_sets WHERE Rarity IN ('rare', 'super rare', 'secret rare') ) AS sets USING (card_name) GROUP BY Attribute";
+    con.query(query, function (err, result, fields) {
+        console.log(query);
+        if (err) res.status(400);
+        res.json(result);
+        console.log(result)
+      });
+});
+
+// Executes a single SQL SELECT query on the YuGiOmni database, returning monster cards whose rarity is Rare or higher.
+app.get('/example_query/lifepoints', function(req, res) {
+    let query = "SELECT card_name, effect FROM spell_cards NATURAL JOIN card_names WHERE effect LIKE '%LP%' OR effect LIKE '%Life Point%'";
+    con.query(query, function (err, result, fields) {
+        console.log(query);
+        if (err) res.status(400);
+        res.json(result);
+        console.log(result)
+      });
+});
+
+// Executes a single SQL SELECT query on the YuGiOmni database, returning monster cards whose rarity is Rare or higher.
+app.get('/example_query/max_attack', function(req, res) {
+    let query = "SELECT card_type AS 'Card Type', attack as MaxAttack FROM monster_cards AS monster WHERE attack = (SELECT MAX(Attack) FROM monster_cards WHERE card_type = monster.card_type)";
+    con.query(query, function (err, result, fields) {
+        console.log(query);
+        if (err) res.status(400);
+        res.json(result);
+        console.log(result)
       });
 });
 

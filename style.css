@@ -1,10 +1,12 @@
-  #nav-home h1, #nav-maxhit h1, #nav-accuracy h1, #nav-defence h1, #nav-dps h1 {
-    padding-left: 70px;
+  #nav-home p, h1 {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
   }
-  #nav-home p, #nav-maxhit p, #nav-accuracy p, #nav-defence p {
-    padding-left: 70px;
-    padding-right: 70px;
-    align-items: center;
+  #nav-query, #nav-monster, #nav-example {
+    width: 800px;
+    margin-left: 7%;
   }
   .query-results, table {
     padding: 2px;
@@ -16,24 +18,12 @@
     border: 1px solid;
     padding: 8px;
   }
-  #calculatedmax, #calculateddps {
-    color:red;
-  }
-  #calculatedaccuracy, #calculatedhitchance {
-    color:green;
-  }
-  #calculateddefence {
-    color: lightblue;
-  }
-  .dps-container {
-    padding-left: 90px;
-  }
-  #attackspeed {
-    width: 100px;
-  }
   .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%
+  }
+  #monsteratkdefquery, #monstercountrarityquery, #monster_spell_lp_query, #monster_max_attack_query {
+    margin: 10px;
   }
